@@ -42,7 +42,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
       <div className="flex items-center justify-between px-6 py-4" ref={menuRef}>
         {/* Branding */}
         <div className="font-bold text-xl text-m3-primary">
-          {branding || 'M3'}
+          {branding || 'morris-ui'}
         </div>
 
         {/* Hamburger Button */}

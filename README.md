@@ -1,4 +1,4 @@
-# M3 - React Component Library
+# morris-ui - React Component Library
 
 A modern, minimal React component library built with TypeScript, Tailwind CSS, and Vite.
 
@@ -19,14 +19,14 @@ A modern, minimal React component library built with TypeScript, Tailwind CSS, a
 ## Installation
 
 ```bash
-npm install @mmorris5/m3
+npm install morris-ui
 ```
 
 ## Usage
 
 ```jsx
-import { Button, TextInput, Dropdown } from '@mmorris5/m3'
-import '@mmorris5/m3/styles'
+import { Button, TextInput, Dropdown } from 'morris-ui'
+import 'morris-ui/styles'
 
 export default function App() {
   return (
@@ -60,7 +60,7 @@ npm run build
 
 ## Customization
 
-The M3 library uses Tailwind CSS classes under the hood. You can customize colors and styling by modifying `tailwind.config.ts`.
+The morris-ui library uses Tailwind CSS classes under the hood. You can customize colors and styling by modifying `tailwind.config.ts`.
 
 ## Fonts
 

@@ -41,8 +41,8 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-m3-lighter">
       {/* Navbar */}
       <header className="bg-white border-b border-m3-border px-6 py-4 flex items-center justify-between mb-10 shadow-sm">
-        <span className="text-2xl font-bold text-m3-primary">M3 Components</span>
-        <HamburgerMenu items={navItems} branding={<span className="font-bold text-m3-primary">M3</span>} />
+        <span className="text-2xl font-bold text-m3-primary">morris-ui</span>
+        <HamburgerMenu items={navItems} branding={<span className="font-bold text-m3-primary">morris-ui</span>} />
       </header>
 
       <main className="max-w-4xl mx-auto px-6 pb-16">
