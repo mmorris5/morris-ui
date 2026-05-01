@@ -14,7 +14,9 @@
     "declaration": true,
     "declarationDir": "./dist",
     "outDir": "./dist",
-    "moduleResolution": "bundler"
+    "rootDir": "./src",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
