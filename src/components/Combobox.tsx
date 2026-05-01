@@ -5,7 +5,7 @@ interface ComboboxOption {
   label: string
 }
 
-interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'children'> {
+interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'children' | 'onSelect'> {
   options: ComboboxOption[]
   label?: string
   error?: string

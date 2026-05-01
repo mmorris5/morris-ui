@@ -19,14 +19,14 @@ A modern, minimal React component library built with TypeScript, Tailwind CSS, a
 ## Installation
 
 ```bash
-npm install @yourusername/m3
+npm install @mmorris5/m3
 ```
 
 ## Usage
 
 ```jsx
-import { Button, TextInput, Dropdown } from '@yourusername/m3'
-import '@yourusername/m3/styles'
+import { Button, TextInput, Dropdown } from '@mmorris5/m3'
+import '@mmorris5/m3/styles'
 
 export default function App() {
   return (

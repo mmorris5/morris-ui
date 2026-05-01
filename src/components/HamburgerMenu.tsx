@@ -38,7 +38,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   }
 
   return (
-    <nav className="sticky top-0 z-40 bg-white border-b border-m3-border backdrop-blur-sm">
+    <nav className="relative sticky top-0 z-40 bg-white border-b border-m3-border backdrop-blur-sm">
       <div className="flex items-center justify-between px-6 py-4" ref={menuRef}>
         {/* Branding */}
         <div className="font-bold text-xl text-m3-primary">
@@ -48,7 +48,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
         {/* Hamburger Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex flex-col gap-1.5 relative w-8 h-8 focus:outline-none"
+          className="flex flex-col items-center justify-center gap-1.5 w-8 h-8 focus:outline-none ml-4"
           aria-label="Toggle menu"
         >
           <span
