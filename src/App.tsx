@@ -12,8 +12,8 @@ import { Modal } from './components/Modal'
 import { Radio } from './components/Radio'
 import { TextInput } from './components/TextInput'
 
-const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-  <section className="mb-12">
+const Section: React.FC<{ title: string; id?: string; children: React.ReactNode }> = ({ title, id, children }) => (
+  <section id={id} className="mb-12">
     <h2 className="text-xl font-bold text-m3-primary mb-4 border-b border-m3-border pb-2">{title}</h2>
     <div className="flex flex-wrap gap-4 items-start">{children}</div>
   </section>
@@ -24,10 +24,10 @@ const App: React.FC = () => {
   const [alertVisible, setAlertVisible] = useState(true)
 
   const navItems = [
-    { label: 'Home', href: '#' },
-    { label: 'Components', href: '#' },
-    { label: 'Docs', href: '#' },
-    { label: 'GitHub', href: '#' },
+    { label: 'Home', href: '#top' },
+    { label: 'Components', href: '#components' },
+    { label: 'Forms', href: '#forms' },
+    { label: 'Overlays', href: '#overlays' },
   ]
 
   const dropdownOptions = [
@@ -38,7 +38,7 @@ const App: React.FC = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-m3-lighter">
+    <div id="top" className="min-h-screen bg-m3-lighter">
       {/* Navbar */}
       <header className="bg-white border-b border-m3-border px-6 py-4 flex items-center justify-between mb-10 shadow-sm">
         <span className="text-2xl font-bold text-m3-primary">morris-ui</span>
@@ -48,7 +48,7 @@ const App: React.FC = () => {
       <main className="max-w-4xl mx-auto px-6 pb-16">
 
         {/* Buttons */}
-        <Section title="Button">
+        <Section id="components" title="Button">
           {(['primary', 'secondary', 'outline', 'glass', 'ghost'] as const).map(v => (
             <Button key={v} variant={v}>{v.charAt(0).toUpperCase() + v.slice(1)}</Button>
           ))}
@@ -105,7 +105,7 @@ const App: React.FC = () => {
         </Section>
 
         {/* Text Inputs */}
-        <Section title="TextInput">
+        <Section id="forms" title="TextInput">
           <div className="w-64 flex flex-col gap-3">
             <TextInput label="Default" placeholder="Enter text..." />
             <TextInput label="Glass" variant="glass" placeholder="Glass style..." />
@@ -139,7 +139,7 @@ const App: React.FC = () => {
         </Section>
 
         {/* Modal */}
-        <Section title="Modal">
+        <Section id="overlays" title="Modal">
           <Button onClick={() => setModalOpen(true)}>Open Modal</Button>
           <Modal
             isOpen={modalOpen}

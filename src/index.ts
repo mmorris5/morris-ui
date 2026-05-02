@@ -1,3 +1,5 @@
+import './styles/index.css'
+
 export { Alert } from './components/Alert'
 export { Avatar } from './components/Avatar'
 export { Badge } from './components/Badge'

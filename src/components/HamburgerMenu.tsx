@@ -18,7 +18,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   branding
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,8 +38,8 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   }
 
   return (
-    <nav className="relative sticky top-0 z-40 bg-white border-b border-m3-border backdrop-blur-sm">
-      <div className="flex items-center justify-between px-6 py-4" ref={menuRef}>
+    <nav className="relative sticky top-0 z-40 bg-white border-b border-m3-border backdrop-blur-sm" ref={menuRef}>
+      <div className="flex items-center justify-between px-6 py-4">
         {/* Branding */}
         <div className="font-bold text-xl text-m3-primary">
           {branding || 'morris-ui'}
@@ -50,6 +50,7 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
           onClick={() => setIsOpen(!isOpen)}
           className="flex flex-col items-center justify-center gap-1.5 w-8 h-8 focus:outline-none ml-4"
           aria-label="Toggle menu"
+          aria-expanded={isOpen}
         >
           <span
             className={`w-full h-0.5 bg-m3-primary rounded-full transition-all duration-300 ${
@@ -71,14 +72,13 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
 
       {/* Menu Items */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white border-b border-m3-border animate-slide-up">
+        <div className="absolute top-full left-0 right-0 z-50 bg-white border-b border-m3-border animate-slide-up">
           <ul className="divide-y divide-m3-border">
             {items.map((item, index) => (
               <li key={index}>
                 <a
                   href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault()
+                  onClick={() => {
                     handleItemClick(item)
                   }}
                   className="block px-6 py-3 text-m3-primary font-medium hover:bg-m3-light transition-colors duration-200"
