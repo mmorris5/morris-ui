@@ -2,6 +2,8 @@
 
 A modern, minimal React component library built with TypeScript, Tailwind CSS, and Vite.
 
+📚 **[View Documentation](https://mmorris5.github.io/morris-ui)**
+
 ## Features
 
 - ⚡ Built with Vite for lightning-fast development
@@ -12,9 +14,18 @@ A modern, minimal React component library built with TypeScript, Tailwind CSS, a
 
 ## Components
 
+- **Alert** - Informational alerts with success, warning, danger, and info variants
+- **Avatar** - User avatar with initials or image support
+- **Badge** - Inline status badges with color variants
 - **Button** - Versatile button with multiple variants and sizes
-- **TextInput** - Text input with label, error states, and helper text
+- **Card** - Content container with default and glass styles
+- **Checkbox** - Accessible checkbox with label and error state
+- **Combobox** - Searchable select with keyboard support
 - **Dropdown** - Accessible dropdown/select component
+- **HamburgerMenu** - Responsive navigation menu
+- **Modal** - Dialog overlay with header, body, and action slots
+- **Radio** - Accessible radio input with label and error state
+- **TextInput** - Text input with label, error states, and helper text
 
 ## Installation
 
@@ -70,13 +81,8 @@ This library uses **Inter** from [Google Fonts](https://fonts.google.com/), whic
 
 MIT License - see [LICENSE](./LICENSE) file for details.
 
-## Publishing to NPM
+## Documentation
 
-Before publishing:
-
-1. Update `package.json` with your actual NPM username and repository URL
-2. Create an NPM account at [npmjs.com](https://npmjs.com)
-3. Run `npm login` and enter your credentials
-4. Run `npm publish`
+Full interactive documentation is available at **[mmorris5.github.io/morris-ui](https://mmorris5.github.io/morris-ui)**, powered by Storybook. Each component has live examples and an auto-generated prop table.
 
 For detailed information, see [NPM Package Publishing Guide](https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages).
