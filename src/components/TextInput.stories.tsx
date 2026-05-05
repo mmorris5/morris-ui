@@ -10,6 +10,7 @@ const meta: Meta<typeof TextInput> = {
     placeholder: { control: 'text' },
     error: { control: 'text' },
     helperText: { control: 'text' },
+    value: { control: 'text', description: 'Controlled input value' },
     variant: { control: 'select', options: ['default', 'glass'] },
     disabled: { control: 'boolean' },
     type: {
@@ -24,6 +25,10 @@ type Story = StoryObj<typeof TextInput>
 
 export const Default: Story = {
   args: { label: 'Full name', placeholder: 'Enter your name...' },
+}
+
+export const WithValue: Story = {
+  args: { label: 'Full name', value: 'Matt Morris', readOnly: true },
 }
 
 export const Glass: Story = {

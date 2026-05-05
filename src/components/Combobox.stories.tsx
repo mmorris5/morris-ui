@@ -17,6 +17,8 @@ const meta: Meta<typeof Combobox> = {
     label: { control: 'text' },
     placeholder: { control: 'text' },
     error: { control: 'text' },
+    value: { control: 'text', description: 'Controlled selected option value' },
+    defaultValue: { control: 'text', description: 'Initial selected option value' },
     variant: { control: 'select', options: ['default', 'glass'] },
   },
 }
@@ -26,6 +28,10 @@ type Story = StoryObj<typeof Combobox>
 
 export const Default: Story = {
   args: { options, label: 'Framework', placeholder: 'Search frameworks...' },
+}
+
+export const WithValue: Story = {
+  args: { options, label: 'Framework', value: 'react' },
 }
 
 export const Glass: Story = {

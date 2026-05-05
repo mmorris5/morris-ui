@@ -1,17 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-interface ComboboxOption {
+export interface ComboboxOption {
   value: string | number
   label: string
 }
 
-interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'children' | 'onSelect'> {
+export interface ComboboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'children' | 'defaultValue' | 'onSelect' | 'value'> {
   options: ComboboxOption[]
   label?: string
   error?: string
   onSelect?: (option: ComboboxOption) => void
   placeholder?: string
   variant?: 'default' | 'glass'
+  value?: ComboboxOption['value']
+  defaultValue?: ComboboxOption['value']
 }
 
 export const Combobox: React.FC<ComboboxProps> = ({
@@ -22,17 +24,35 @@ export const Combobox: React.FC<ComboboxProps> = ({
   placeholder = 'Search...',
   variant = 'default',
   className,
+  value,
+  defaultValue,
+  onChange,
+  onFocus,
   ...props
 }) => {
-  const [inputValue, setInputValue] = useState('')
+  const isControlled = value !== undefined
+  const [selectedValue, setSelectedValue] = useState<ComboboxOption['value'] | undefined>(defaultValue)
+  const [inputValue, setInputValue] = useState(() => {
+    const initialOption = options.find((option) => option.value === (value ?? defaultValue))
+    return initialOption?.label ?? ''
+  })
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState<ComboboxOption | null>(null)
   const comboboxRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const selected = options.find((option) => option.value === (isControlled ? value : selectedValue)) ?? null
 
   const filteredOptions = options.filter(option =>
     option.label.toLowerCase().includes(inputValue.toLowerCase())
   )
+
+  useEffect(() => {
+    if (value === undefined) {
+      return
+    }
+
+    const selectedOption = options.find((option) => option.value === value)
+    setInputValue(selectedOption?.label ?? '')
+  }, [options, value])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,10 +66,17 @@ export const Combobox: React.FC<ComboboxProps> = ({
   }, [])
 
   const handleSelect = (option: ComboboxOption) => {
-    setSelected(option)
+    if (!isControlled) {
+      setSelectedValue(option.value)
+    }
+
     setInputValue(option.label)
     setIsOpen(false)
     onSelect?.(option)
+    onChange?.({
+      target: { value: String(option.value) },
+      currentTarget: { value: String(option.value) },
+    } as React.ChangeEvent<HTMLInputElement>)
   }
 
   const inputBaseStyles = `w-full px-4 py-2.5 rounded-lg font-medium transition-all duration-200 placeholder:text-m3-secondary/50 ${
@@ -80,10 +107,14 @@ export const Combobox: React.FC<ComboboxProps> = ({
           onChange={(e) => {
             setInputValue(e.target.value)
             setIsOpen(true)
+            onChange?.(e)
           }}
-          onFocus={() => setIsOpen(true)}
+          onFocus={(e) => {
+            setIsOpen(true)
+            onFocus?.(e)
+          }}
           placeholder={placeholder}
-          className={`${inputBaseStyles} ${focusStyles} ${error ? 'border-m3-danger' : ''}`}
+          className={`${inputBaseStyles} ${focusStyles} ${error ? 'border-m3-danger' : ''} ${className || ''}`}
           {...props}
         />
 

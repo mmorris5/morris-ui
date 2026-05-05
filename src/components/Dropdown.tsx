@@ -1,16 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-interface DropdownOption {
+export interface DropdownOption {
   value: string | number
   label: string
 }
 
-interface DropdownProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'children'> {
+export interface DropdownProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'children' | 'defaultValue' | 'value'> {
   options: DropdownOption[]
   placeholder?: string
   label?: string
   error?: string
   variant?: 'default' | 'glass'
+  value?: DropdownOption['value']
+  defaultValue?: DropdownOption['value']
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
@@ -20,11 +22,24 @@ export const Dropdown: React.FC<DropdownProps> = ({
   error,
   variant = 'default',
   className,
-  ...props
+  id,
+  name,
+  disabled,
+  value,
+  defaultValue,
+  onChange,
+  onFocus,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selected, setSelected] = useState<DropdownOption | null>(null)
+  const [selectedValue, setSelectedValue] = useState<DropdownOption['value'] | undefined>(defaultValue)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const selected = options.find((option) => option.value === (value ?? selectedValue)) ?? null
+
+  useEffect(() => {
+    if (value !== undefined) {
+      setSelectedValue(value)
+    }
+  }, [value])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -38,14 +53,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, [])
 
   const handleSelect = (option: DropdownOption) => {
-    setSelected(option)
-    setIsOpen(false)
-    if (props.onChange) {
-      const event = {
-        target: { value: option.value }
-      } as React.ChangeEvent<HTMLSelectElement>
-      props.onChange(event)
+    if (value === undefined) {
+      setSelectedValue(option.value)
     }
+
+    setIsOpen(false)
+    onChange?.({
+      target: { value: String(option.value) },
+      currentTarget: { value: String(option.value) },
+    } as React.ChangeEvent<HTMLSelectElement>)
   }
 
   const triggerStyles = `w-full px-4 py-2.5 rounded-lg font-medium text-left flex justify-between items-center transition-all duration-200 ${
@@ -62,11 +78,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
         </label>
       )}
       <div className="relative">
+        {name && <input type="hidden" name={name} value={selected ? String(selected.value) : ''} />}
         <button
+          id={id}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className={triggerStyles}
-          onFocus={() => {}}
+          className={`${triggerStyles} ${className || ''}`}
+          onFocus={(event) => onFocus?.(event as unknown as React.FocusEvent<HTMLSelectElement>)}
+          disabled={disabled}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
         >
           <span className={selected ? 'text-m3-primary font-medium' : 'text-m3-secondary'}>
             {selected?.label || placeholder}
@@ -83,9 +104,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 key={option.value}
                 type="button"
                 onClick={() => handleSelect(option)}
+                disabled={disabled}
                 className={`w-full px-4 py-2.5 text-left transition-all duration-150 hover:bg-m3-accent hover:text-white font-medium ${
                   index !== options.length - 1 ? 'border-b border-m3-border/30' : ''
-                }`}
+                } ${selected?.value === option.value ? 'bg-m3-accent text-white' : ''}`}
               >
                 {option.label}
               </button>

@@ -9,6 +9,7 @@ const meta: Meta<typeof Radio> = {
     label: { control: 'text' },
     error: { control: 'text' },
     disabled: { control: 'boolean' },
+    checked: { control: 'boolean', description: 'Controlled checked state' },
     defaultChecked: { control: 'boolean' },
   },
 }
@@ -18,6 +19,7 @@ type Story = StoryObj<typeof Radio>
 
 export const Default: Story = { args: { label: 'Option A', name: 'demo' } }
 export const Checked: Story = { args: { label: 'Option A', name: 'demo2', defaultChecked: true } }
+export const Controlled: Story = { args: { label: 'Option A', name: 'demo5', checked: true, readOnly: true } }
 export const WithError: Story = { args: { label: 'Option A', name: 'demo3', error: 'Selection required' } }
 export const Disabled: Story = { args: { label: 'Disabled option', name: 'demo4', disabled: true } }
 
